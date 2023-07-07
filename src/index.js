@@ -1,7 +1,6 @@
 import axios from 'axios';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
-import SlimSelect from 'slim-select'
 import { JSONArrayAPI } from './cat-api';
 axios.defaults.headers.common['x-api-key'] =
   'live_eaoy0NBQRAaM2g87waEAE5wIJFurROmL3GXkUa9BFt7btU42gpBfL8h1uA6iorCK';
@@ -16,10 +15,6 @@ selectIdEl.classList.toggle('is-hidden');
 loaderAnimationEl.classList.toggle('is-hidden')
 
 const jsonArrayInstance = new JSONArrayAPI();
-
-new SlimSelect({
-  select: '#selectElement'
-})
 
 window.addEventListener(
   'load',
