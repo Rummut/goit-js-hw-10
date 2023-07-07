@@ -1,5 +1,7 @@
 import axios from 'axios';
 import debounce from 'lodash.debounce';
+import Notiflix from 'notiflix';
+import SlimSelect from 'slim-select'
 import { JSONArrayAPI } from './cat-api';
 axios.defaults.headers.common['x-api-key'] =
   'live_eaoy0NBQRAaM2g87waEAE5wIJFurROmL3GXkUa9BFt7btU42gpBfL8h1uA6iorCK';
@@ -7,16 +9,17 @@ axios.defaults.headers.common['x-api-key'] =
 const selectIdEl = document.querySelector('.breed-select');
 const catInfoEl = document.querySelector('.cat-info');
 const loaderEl = document.querySelector('.loader');
-const errorEl = document.querySelector('.error');
-// const loaderAnimationEl = document.querySelector('.loader-animation')
+const loaderAnimationEl = document.querySelector('.loader-animation')
 
 loaderEl.classList.toggle('is-hidden');
-errorEl.classList.toggle('is-hidden');
 selectIdEl.classList.toggle('is-hidden');
-// loaderAnimationEl.classList.toggle('is-hidden');
-
+loaderAnimationEl.classList.toggle('is-hidden')
 
 const jsonArrayInstance = new JSONArrayAPI();
+
+new SlimSelect({
+  select: '#selectElement'
+})
 
 window.addEventListener(
   'load',
@@ -24,6 +27,7 @@ window.addEventListener(
     loaderEl.classList.toggle('is-hidden');
     setTimeout(() => {
       createSelect();
+      loaderAnimationEl.classList.toggle('is-hidden');
       loaderEl.classList.toggle('is-hidden');
       selectIdEl.classList.toggle('is-hidden');
     }, 1000);
@@ -41,7 +45,7 @@ function createSelect() {
       selectIdEl.insertAdjacentHTML('beforeend', markup);
     })
     .catch(error => {
-      errorEl.classList.toggle('is-hidden');
+      Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');;
     });
 }
 
@@ -49,10 +53,12 @@ function createSelect() {
 selectIdEl.addEventListener(
   'change',
   debounce(() => {
+    loaderAnimationEl.classList.toggle('is-hidden');
     loaderEl.classList.toggle('is-hidden');
     setTimeout(() => {
       setOutput();
       loaderEl.classList.toggle('is-hidden');
+      loaderAnimationEl.classList.toggle('is-hidden');
     }, 1000);
   }, 0)
 );
@@ -72,7 +78,7 @@ function setOutput() {
       catInfoEl.insertAdjacentHTML('beforeend', markupImg)
     })
     .catch(error => {
-      errorEl.classList.toggle('is-hidden')
+            Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
     });
 
   //add markup about cat
@@ -91,6 +97,7 @@ function setOutput() {
       catInfoEl.insertAdjacentHTML('afterbegin', markupDescription);
     })
     .catch(error => {
-      errorEl.classList.toggle('is-hidden');
+            Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');;
+
     });
 }
