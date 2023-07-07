@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homework 10</title>
     <link href="./css/index.css" rel="stylesheet" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+    </style>
   </head>
   <body>
-    <select class="breed-select"></select>
-    <p class="loader">Loading data, please wait...</p>
-    <span class="loader-animation is-hidden"></span>
-    <div class="cat-info"></div>
-
-    <script src="index.js" type="module"></script>
+    <div class="container">
+      <select class="breed-select"></select>
+      <p class="loader">Loading data, please wait...</p>
+      <span class="loader-animation is-hidden"></span>
+      <div class="cat-info"></div>
+      <button
+        type="button"
+        class="button"
+        onclick="location.href='https://www.cats.org.uk/';"
+      >
+        Buy
+        <a href=""></a>
+      </button>
+      <script src="index.js" type="module"></script>
+    </div>
   </body>
 </html>

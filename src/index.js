@@ -8,11 +8,13 @@ axios.defaults.headers.common['x-api-key'] =
 const selectIdEl = document.querySelector('.breed-select');
 const catInfoEl = document.querySelector('.cat-info');
 const loaderEl = document.querySelector('.loader');
-const loaderAnimationEl = document.querySelector('.loader-animation')
+const loaderAnimationEl = document.querySelector('.loader-animation');
+const buttonEl = document.querySelector('.button');
 
 loaderEl.classList.toggle('is-hidden');
 selectIdEl.classList.toggle('is-hidden');
-loaderAnimationEl.classList.toggle('is-hidden')
+loaderAnimationEl.classList.toggle('is-hidden');
+buttonEl.classList.toggle('is-hidden');
 
 const jsonArrayInstance = new JSONArrayAPI();
 
@@ -40,7 +42,9 @@ function createSelect() {
       selectIdEl.insertAdjacentHTML('beforeend', markup);
     })
     .catch(error => {
-      Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');;
+      Notiflix.Notify.failure(
+        'Oops! Something went wrong! Try reloading the page!'
+      );
     });
 }
 
@@ -60,20 +64,23 @@ selectIdEl.addEventListener(
 
 //add common markup
 function setOutput() {
-  const selectedOptionValue = selectIdEl.value
+  const selectedOptionValue = selectIdEl.value;
 
   //add img
   jsonArrayInstance
     .fetchCatByBreed(selectedOptionValue)
     .then(data => {
       const markupImg = data
-        .map(el => `<img src="${el.url}" alt='' width = 600>`)
+        .map(el => `<img src="${el.url}" alt='' width = 600px>`)
         .join('');
-      catInfoEl.innerHTML = ""
-      catInfoEl.insertAdjacentHTML('beforeend', markupImg)
+      catInfoEl.innerHTML = '';
+      catInfoEl.insertAdjacentHTML('beforeend', markupImg);
+      buttonEl.classList.remove('is-hidden');
     })
     .catch(error => {
-            Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
+      Notiflix.Notify.failure(
+        'Oops! Something went wrong! Try reloading the page!'
+      );
     });
 
   //add markup about cat
@@ -88,11 +95,12 @@ function setOutput() {
           }
         })
         .join('');
-      
+
       catInfoEl.insertAdjacentHTML('afterbegin', markupDescription);
     })
     .catch(error => {
-            Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');;
-
+      Notiflix.Notify.failure(
+        'Oops! Something went wrong! Try reloading the page!'
+      );
     });
 }
