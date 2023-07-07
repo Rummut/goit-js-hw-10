@@ -3,7 +3,7 @@ import axios from 'axios';
 axios.defaults.headers.common['x-api-key'] =
   'live_eaoy0NBQRAaM2g87waEAE5wIJFurROmL3GXkUa9BFt7btU42gpBfL8h1uA6iorCK';
 
-BASE_URL = 'https://api.thecatapi.com/v1';
+const BASE_URL = 'https://api.thecatapi.com/v1';
 
 export class JSONArrayAPI {
 fetchBreeds() {
