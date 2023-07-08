@@ -1,6 +1,8 @@
 import axios from 'axios';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
+import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css'
 import { JSONArrayAPI } from './cat-api';
 axios.defaults.headers.common['x-api-key'] =
   'live_eaoy0NBQRAaM2g87waEAE5wIJFurROmL3GXkUa9BFt7btU42gpBfL8h1uA6iorCK';
@@ -40,6 +42,9 @@ function createSelect() {
         .map(el => `<option value = ${el.id}>${el.name}</option>`)
         .join('');
       selectIdEl.insertAdjacentHTML('beforeend', markup);
+      new SlimSelect({
+  select: '#selectElement'
+})
     })
     .catch(error => {
       Notiflix.Notify.failure(
