@@ -2,7 +2,7 @@ import axios from 'axios';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 import SlimSelect from 'slim-select';
-import 'slim-select/dist/slimselect.css'
+import 'slim-select/dist/slimselect.css';
 import { JSONArrayAPI } from './cat-api';
 axios.defaults.headers.common['x-api-key'] =
   'live_eaoy0NBQRAaM2g87waEAE5wIJFurROmL3GXkUa9BFt7btU42gpBfL8h1uA6iorCK';
@@ -13,25 +13,21 @@ const loaderEl = document.querySelector('.loader');
 const loaderAnimationEl = document.querySelector('.loader-animation');
 const buttonEl = document.querySelector('.button');
 
-loaderEl.classList.toggle('is-hidden');
+// loaderEl.classList.toggle('is-hidden');
 selectIdEl.classList.toggle('is-hidden');
 loaderAnimationEl.classList.toggle('is-hidden');
 buttonEl.classList.toggle('is-hidden');
 
 const jsonArrayInstance = new JSONArrayAPI();
 
-window.addEventListener(
-  'load',
-  debounce(() => {
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    createSelect();
+    loaderAnimationEl.classList.toggle('is-hidden');
     loaderEl.classList.toggle('is-hidden');
-    setTimeout(() => {
-      createSelect();
-      loaderAnimationEl.classList.toggle('is-hidden');
-      loaderEl.classList.toggle('is-hidden');
-      selectIdEl.classList.toggle('is-hidden');
-    }, 1000);
-  }, 0)
-);
+    selectIdEl.classList.toggle('is-hidden');
+  }, 1000);
+});
 
 //create select
 function createSelect() {
@@ -43,8 +39,8 @@ function createSelect() {
         .join('');
       selectIdEl.insertAdjacentHTML('beforeend', markup);
       new SlimSelect({
-  select: '#selectElement'
-})
+        select: '#selectElement',
+      });
     })
     .catch(error => {
       Notiflix.Notify.failure(
@@ -54,18 +50,13 @@ function createSelect() {
 }
 
 //add and delete loader
-selectIdEl.addEventListener(
-  'change',
-  debounce(() => {
-    loaderAnimationEl.classList.toggle('is-hidden');
-    loaderEl.classList.toggle('is-hidden');
-    setTimeout(() => {
-      setOutput();
-      loaderEl.classList.toggle('is-hidden');
-      loaderAnimationEl.classList.toggle('is-hidden');
-    }, 1000);
-  }, 0)
-);
+selectIdEl.addEventListener('change', () => {
+  loaderEl.classList.toggle('is-hidden');
+  loaderAnimationEl.classList.toggle('is-hidden');
+  setTimeout(() => {
+    setOutput();
+  }, 1000);
+});
 
 //add common markup
 function setOutput() {
@@ -80,6 +71,8 @@ function setOutput() {
         .join('');
       catInfoEl.innerHTML = '';
       catInfoEl.insertAdjacentHTML('beforeend', markupImg);
+      loaderEl.classList.toggle('is-hidden');
+      loaderAnimationEl.classList.toggle('is-hidden');
       buttonEl.classList.remove('is-hidden');
     })
     .catch(error => {
