@@ -1,5 +1,4 @@
 import axios from 'axios';
-import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
